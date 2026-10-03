@@ -9,7 +9,6 @@ ffbuild_depends() {
 }
 
 ffbuild_enabled() {
-    [[ $TARGET == winarm64 ]] && return -1
     return 0
 }
 

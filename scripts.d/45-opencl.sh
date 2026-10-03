@@ -39,13 +39,8 @@ ffbuild_dockerbuild() {
     echo "Version: 9999" >> OpenCL.pc
     echo "Cflags: -I\${includedir}" >> OpenCL.pc
 
-    if [[ $TARGET == linux* ]]; then
-        echo "Libs: -L\${libdir} -lOpenCL" >> OpenCL.pc
-        echo "Libs.private: -ldl" >> OpenCL.pc
-    elif [[ $TARGET == win* ]]; then
-        echo "Libs: -L\${libdir} -l:OpenCL.a" >> OpenCL.pc
-        echo "Libs.private: -lole32 -lshlwapi -lcfgmgr32" >> OpenCL.pc
-    fi
+    echo "Libs: -L\${libdir} -l:OpenCL.a" >> OpenCL.pc
+    echo "Libs.private: -lole32 -lshlwapi -lcfgmgr32" >> OpenCL.pc
 
     mkdir -p "$FFBUILD_DESTPREFIX"/lib/pkgconfig
     mv OpenCL.pc "$FFBUILD_DESTPREFIX"/lib/pkgconfig/OpenCL.pc

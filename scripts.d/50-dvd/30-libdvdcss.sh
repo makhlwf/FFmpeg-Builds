@@ -18,19 +18,11 @@ ffbuild_dockerbuild() {
 
     local myconf=(
         --prefix="$FFBUILD_PREFIX"
+        --cross-file=/cross.meson
         -Ddefault_library=static
         -Denable_docs=false
         -Denable_examples=false
     )
-
-    if [[ $TARGET == win* || $TARGET == linux* ]]; then
-        myconf+=(
-            --cross-file=/cross.meson
-        )
-    else
-        echo "Unknown target"
-        return -1
-    fi
 
     export CFLAGS="$CFLAGS -Dprint_error=dvdcss_print_error -Dprint_debug=dvdcss_print_debug"
 

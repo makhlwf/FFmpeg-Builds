@@ -62,18 +62,12 @@ ffbuild_dockerbuild() {
         -DCURL_DISABLE_WEBSOCKETS=ON
     )
 
-    if [[ $TARGET == win* ]]; then
-        mycmake+=(
-            -DCURL_CA_NATIVE=ON
-            -DCURL_WINDOWS_SSPI=ON
-            -DCURL_DISABLE_OPENSSL_AUTO_LOAD_CONFIG=ON
-            -DUSE_WIN32_IDN=ON
-        )
-    else
-        mycmake+=(
-            -DCURL_CA_FALLBACK=ON
-        )
-    fi
+    mycmake+=(
+        -DCURL_CA_NATIVE=ON
+        -DCURL_WINDOWS_SSPI=ON
+        -DCURL_DISABLE_OPENSSL_AUTO_LOAD_CONFIG=ON
+        -DUSE_WIN32_IDN=ON
+    )
 
     cmake -GNinja -DCMAKE_TOOLCHAIN_FILE="$FFBUILD_CMAKE_TOOLCHAIN" -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="$FFBUILD_PREFIX" \
         -DBUILD_SHARED_LIBS=OFF -DBUILD_STATIC_LIBS=ON "${mycmake[@]}" ..

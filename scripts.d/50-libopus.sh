@@ -26,12 +26,6 @@ ffbuild_dockerbuild() {
         --disable-extra-programs
     )
 
-    if [[ $TARGET == winarm* ]]; then
-        myconf+=(
-            --disable-rtcd
-        )
-    fi
-
     ./configure "${myconf[@]}"
     make -j$(nproc)
     make install DESTDIR="$FFBUILD_DESTDIR"

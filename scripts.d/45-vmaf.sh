@@ -27,26 +27,11 @@ ffbuild_dockerbuild() {
         -Denable_float=true
     )
 
-    if [[ $TARGET == *32 ]]; then
-        myconf+=(
-            -Denable_avx512=false
-            -Denable_asm=false
-        )
-    else
-        myconf+=(
-            -Denable_avx512=true
-            -Denable_asm=true
-        )
-    fi
-
-    if [[ $TARGET == win* || $TARGET == linux* ]]; then
-        myconf+=(
-            --cross-file=/cross.meson
-        )
-    else
-        echo "Unknown target"
-        return -1
-    fi
+    myconf+=(
+        -Denable_avx512=true
+        -Denable_asm=true
+        --cross-file=/cross.meson
+    )
 
     meson "${myconf[@]}" ../libvmaf || cat meson-logs/meson-log.txt
     ninja -j"$(nproc)"

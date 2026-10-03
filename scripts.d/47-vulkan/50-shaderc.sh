@@ -25,14 +25,7 @@ ffbuild_dockerbuild() {
     export DESTDIR="/tmp/staging$FFBUILD_DESTDIR"
     ninja install
 
-    if [[ $TARGET == win* ]]; then
-        rm -r "${DESTDIR}${FFBUILD_PREFIX}"/bin "${DESTDIR}${FFBUILD_PREFIX}"/lib/*.dll.a
-    elif [[ $TARGET == linux* ]]; then
-        rm -r "${DESTDIR}${FFBUILD_PREFIX}"/bin "${DESTDIR}${FFBUILD_PREFIX}"/lib/*.so*
-    else
-        echo "Unknown target"
-        return -1
-    fi
+    rm -r "${DESTDIR}${FFBUILD_PREFIX}"/bin "${DESTDIR}${FFBUILD_PREFIX}"/lib/*.dll.a
 
     cp -al "$DESTDIR"/. "$FFBUILD_DESTDIR"
     rm -rf "$DESTDIR"

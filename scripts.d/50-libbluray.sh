@@ -25,6 +25,7 @@ ffbuild_dockerbuild() {
 
     local myconf=(
         --prefix="$FFBUILD_PREFIX"
+        --cross-file=/cross.meson
         -Ddefault_library=static
         -Denable_docs=false
         -Denable_tools=false
@@ -35,15 +36,6 @@ ffbuild_dockerbuild() {
         -Dfreetype=enabled
         -Dlibxml2=enabled
     )
-
-    if [[ $TARGET == win* || $TARGET == linux* ]]; then
-        myconf+=(
-            --cross-file=/cross.meson
-        )
-    else
-        echo "Unknown target"
-        return -1
-    fi
 
     export CPPFLAGS="${CPPFLAGS} -Ddec_init=libbr_dec_init"
 

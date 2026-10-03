@@ -27,11 +27,9 @@ ffbuild_dockerbuild() {
         -Dutilities=disabled
     )
 
-    if [[ $TARGET == win* ]]; then
-        myconf+=(
-            -Dgdi=enabled
-        )
-    fi
+    myconf+=(
+        -Dgdi=enabled
+    )
 
     meson setup "${myconf[@]}" ..
     ninja -j"$(nproc)"

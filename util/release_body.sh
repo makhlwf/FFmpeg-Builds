@@ -12,17 +12,12 @@ shift
 REPO="${GITHUB_REPOSITORY:-BtbN/FFmpeg-Builds}"
 DL_BASE="https://github.com/${REPO}/releases/download/${TAGNAME}"
 
-TARGETS=(win64 winarm64 win32 linux64 linuxarm64 linux32)
+TARGETS=(win64)
 VARIANTS=(gpl gpl-shared lgpl lgpl-shared)
 
 target_name() {
     case "$1" in
         win64)       echo "Windows (x86_64)" ;;
-        winarm64)    echo "Windows (arm64)" ;;
-        win32)       echo "Windows (x86)" ;;
-        linux64)     echo "Linux (x86_64)" ;;
-        linuxarm64)  echo "Linux (arm64)" ;;
-        linux32)     echo "Linux (x86)" ;;
         *)           echo "$1" ;;
     esac
 }
@@ -44,7 +39,6 @@ declare -A GROUP_SEEN
 for FILE in "$@"; do
     FNAME="$(basename "$FILE")"
     BASE="${FNAME%.zip}"
-    BASE="${BASE%.tar.xz}"
 
     TARGET=""
     for T in "${TARGETS[@]}"; do

@@ -34,37 +34,10 @@ ffbuild_dockerbuild() {
         --libdir=lib
     )
 
-    if [[ $TARGET == win64 ]]; then
-        myconf+=(
-            --cross-compile-prefix="$FFBUILD_CROSS_PREFIX"
-            mingw64
-        )
-    elif [[ $TARGET == win32 ]]; then
-        myconf+=(
-            --cross-compile-prefix="$FFBUILD_CROSS_PREFIX"
-            mingw
-        )
-    elif [[ $TARGET == winarm64 ]]; then
-        myconf+=(
-            --cross-compile-prefix="$FFBUILD_CROSS_PREFIX"
-            mingwarm64
-        )
-    elif [[ $TARGET == linux64 ]]; then
-        myconf+=(
-            --openssldir=/etc/ssl
-            --cross-compile-prefix="$FFBUILD_CROSS_PREFIX"
-            linux-x86_64
-        )
-    elif [[ $TARGET == linuxarm64 ]]; then
-        myconf+=(
-            --openssldir=/etc/ssl
-            --cross-compile-prefix="$FFBUILD_CROSS_PREFIX"
-            linux-aarch64
-        )
-    else
-        echo "Unknown target"
-        return -1
-    fi
+    myconf+=(
+        --cross-compile-prefix="$FFBUILD_CROSS_PREFIX"
+        mingw64
+    )
 
     export CFLAGS="$CFLAGS -fno-strict-aliasing"
     export CXXFLAGS="$CXXFLAGS -fno-strict-aliasing"
@@ -84,6 +57,5 @@ ffbuild_dockerbuild() {
 }
 
 ffbuild_configure() {
-    [[ $TARGET == win* ]] && return 0
-    echo --enable-openssl
+    return 0
 }

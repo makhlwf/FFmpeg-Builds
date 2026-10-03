@@ -32,19 +32,10 @@ ffbuild_dockerbuild() {
         -Dlibunibreak=enabled
     )
 
-    if [[ $TARGET == win* ]]; then
-        myconf+=(
-            -Ddirectwrite=enabled
-            --cross-file=/cross.meson
-        )
-    elif [[ $TARGET == linux* ]]; then
-        myconf+=(
-            --cross-file=/cross.meson
-        )
-    else
-        echo "Unknown target"
-        return -1
-    fi
+    myconf+=(
+        -Ddirectwrite=enabled
+        --cross-file=/cross.meson
+    )
 
     export CFLAGS="$CFLAGS -Dread_file=libass_internal_read_file"
 

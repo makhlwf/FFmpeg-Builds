@@ -16,17 +16,9 @@ ffbuild_dockerbuild() {
         --disable-lavf
         --disable-swscale
         --prefix="$FFBUILD_PREFIX"
+        --host="$FFBUILD_TOOLCHAIN"
+        --cross-prefix="$FFBUILD_CROSS_PREFIX"
     )
-
-    if [[ $TARGET == win* || $TARGET == linux* ]]; then
-        myconf+=(
-            --host="$FFBUILD_TOOLCHAIN"
-            --cross-prefix="$FFBUILD_CROSS_PREFIX"
-        )
-    else
-        echo "Unknown target"
-        return -1
-    fi
 
     ./configure "${myconf[@]}"
     make -j$(nproc)

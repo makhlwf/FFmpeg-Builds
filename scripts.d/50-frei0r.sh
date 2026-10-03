@@ -11,7 +11,6 @@ ffbuild_enabled() {
 
 ffbuild_depends() {
     echo base
-    echo x11
 }
 
 ffbuild_dockerfinal() {

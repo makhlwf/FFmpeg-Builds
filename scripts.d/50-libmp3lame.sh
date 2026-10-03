@@ -20,21 +20,13 @@ ffbuild_dockerdl() {
 ffbuild_dockerbuild() {
     local myconf=(
         --prefix="$FFBUILD_PREFIX"
+        --host="$FFBUILD_TOOLCHAIN"
         --disable-shared
         --enable-static
         --disable-cpml
         --disable-frontend
         --disable-decoder
     )
-
-    if [[ $TARGET == win* || $TARGET == linux* ]]; then
-        myconf+=(
-            --host="$FFBUILD_TOOLCHAIN"
-        )
-    else
-        echo "Unknown target"
-        return -1
-    fi
 
     export CFLAGS="$CFLAGS -DNDEBUG"
 

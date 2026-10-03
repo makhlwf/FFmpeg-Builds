@@ -9,6 +9,11 @@ TARGET="$1"
 VARIANT="$2"
 shift 2
 
+if [[ "$TARGET" != "win64" && "$TARGET" != "dl" ]]; then
+    echo "Only win64 (Windows x64) target is supported"
+    exit -1
+fi
+
 if ! [[ -f "variants/${TARGET}-${VARIANT}.sh" ]]; then
     echo "Invalid target/variant"
     exit -1

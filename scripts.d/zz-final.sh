@@ -15,9 +15,7 @@ ffbuild_depends() {
     echo lcms2
     echo libvorbis
     echo opencl
-    echo pulseaudio
     echo vmaf
-    echo x11
     echo vulkan
     echo amf
     echo aom
@@ -67,7 +65,6 @@ ffbuild_depends() {
     echo svtav1
     echo twolame
     echo uavs3d
-    echo vaapi
     echo vapoursynth
     echo vidstab
     echo vvenc

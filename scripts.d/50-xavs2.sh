@@ -5,9 +5,6 @@ SCRIPT_COMMIT="eae1e8b9d12468059bdd7dee893508e470fa83d8"
 
 ffbuild_enabled() {
     [[ $VARIANT == lgpl* ]] && return -1
-    [[ $TARGET == win32 ]] && return -1
-    # xavs2 aarch64 support is broken
-    [[ $TARGET == *arm64 ]] && return -1
     return 0
 }
 
@@ -33,15 +30,10 @@ ffbuild_dockerbuild() {
         --prefix="$FFBUILD_PREFIX"
     )
 
-    if [[ $TARGET == win* || $TARGET == linux* ]]; then
-        myconf+=(
-            --host="$FFBUILD_TOOLCHAIN"
-            --cross-prefix="$FFBUILD_CROSS_PREFIX"
-        )
-    else
-        echo "Unknown target"
-        return -1
-    fi
+    myconf+=(
+        --host="$FFBUILD_TOOLCHAIN"
+        --cross-prefix="$FFBUILD_CROSS_PREFIX"
+    )
 
     # Work around configure endian check failing on modern gcc/binutils.
     # Assumes all supported archs are little endian.

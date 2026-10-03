@@ -28,20 +28,9 @@ ffbuild_dockerbuild() {
         -Dtests=disabled
     )
 
-    if [[ $TARGET == linux* ]]; then
-        myconf+=(
-            --sysconfdir=/etc
-            --localstatedir=/var
-            --cross-file=/cross.meson
-        )
-    elif [[ $TARGET == win* ]]; then
-        myconf+=(
-            --cross-file=/cross.meson
-        )
-    else
-        echo "Unknown target"
-        return -1
-    fi
+    myconf+=(
+        --cross-file=/cross.meson
+    )
 
     meson setup "${myconf[@]}" ..
     ninja -j"$(nproc)"

@@ -21,9 +21,7 @@ ffbuild_dockerbuild() {
 
     echo "Libs.private: -lstdc++" >> "$FFBUILD_DESTPREFIX"/lib/pkgconfig/openal.pc
 
-    if [[ $TARGET == win* ]]; then
-        echo "Libs.private: -lole32 -luuid" >> "$FFBUILD_DESTPREFIX"/lib/pkgconfig/openal.pc
-    fi
+    echo "Libs.private: -lole32 -luuid" >> "$FFBUILD_DESTPREFIX"/lib/pkgconfig/openal.pc
 }
 
 ffbuild_configure() {

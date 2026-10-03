@@ -11,7 +11,6 @@ ffbuild_depends() {
 }
 
 ffbuild_enabled() {
-    [[ $TARGET == winarm64 ]] && return -1
     return 0
 }
 
@@ -46,26 +45,10 @@ ffbuild_dockerbuild() {
         NO_FLAC=1
     )
 
-    if [[ $TARGET == winarm64 ]]; then
-        myconf+=(
-            CONFIG=mingw64-win64
-            WINDOWS_ARCH=arm64
-        )
-        export CPPFLAGS="$CPPFLAGS -DMPT_WITH_MINGWSTDTHREADS"
-    elif [[ $TARGET == win* ]]; then
-        myconf+=(
-            CONFIG=mingw64-"$TARGET"
-        )
-        export CPPFLAGS="$CPPFLAGS -DMPT_WITH_MINGWSTDTHREADS"
-    elif [[ $TARGET == linux* ]]; then
-        myconf+=(
-            CONFIG=gcc
-            TOOLCHAIN_PREFIX="$FFBUILD_CROSS_PREFIX"
-        )
-    else
-        echo "Unknown target"
-        return -1
-    fi
+    myconf+=(
+        CONFIG=mingw64-win64
+    )
+    export CPPFLAGS="$CPPFLAGS -DMPT_WITH_MINGWSTDTHREADS"
 
     make -j$(nproc) "${myconf[@]}" all install DESTDIR="$FFBUILD_DESTDIR"
     rm -r "$FFBUILD_DESTPREFIX"/share/doc/libopenmpt

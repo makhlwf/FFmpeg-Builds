@@ -15,18 +15,10 @@ ffbuild_dockerbuild() {
 
     local myconf=(
         --prefix="$FFBUILD_PREFIX"
+        --cross-file=/cross.meson
         -Ddefault_library=static
         -Denable_examples=false
     )
-
-    if [[ $TARGET == win* || $TARGET == linux* ]]; then
-        myconf+=(
-            --cross-file=/cross.meson
-        )
-    else
-        echo "Unknown target"
-        return -1
-    fi
 
     meson setup "${myconf[@]}" ..
     ninja -j$(nproc)

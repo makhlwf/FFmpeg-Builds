@@ -33,10 +33,7 @@ ffbuild_dockerbuild() {
     {
         echo "Requires.private: libssl libcrypto zlib"
         echo "Cflags.private: -DLIBSSH_STATIC"
-        if [[ $TARGET == win* ]]; then
-            echo "Libs.private: -liphlpapi -lws2_32"
-        fi
-        echo "Libs.private: -lpthread"
+        echo "Libs.private: -liphlpapi -lws2_32 -lpthread"
     } >> "$FFBUILD_DESTPREFIX"/lib/pkgconfig/libssh.pc
 }
 

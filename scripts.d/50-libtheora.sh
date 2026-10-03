@@ -25,22 +25,9 @@ ffbuild_dockerbuild() {
         --disable-vorbistest
         --disable-spec
         --disable-doc
+        --host="$FFBUILD_TOOLCHAIN"
+        --disable-asm
     )
-
-    if [[ $TARGET == win* || $TARGET == linux* ]]; then
-        myconf+=(
-            --host="$FFBUILD_TOOLCHAIN"
-        )
-    else
-        echo "Unknown target"
-        return -1
-    fi
-
-    if [[ $TARGET == win64 ]]; then
-        myconf+=(
-            --disable-asm
-        )
-    fi
 
     ./configure "${myconf[@]}"
     make -j$(nproc)

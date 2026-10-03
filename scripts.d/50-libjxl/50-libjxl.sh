@@ -22,14 +22,9 @@ ffbuild_dockerdl() {
 ffbuild_dockerbuild() {
     mkdir build && cd build
 
-    if [[ $TARGET == linux* ]]; then
-        # our glibc is too old(<2.25), and their detection fails for some reason
-        export CXXFLAGS="$CXXFLAGS -DVQSORT_GETRANDOM=0 -DVQSORT_SECURE_SEED=0"
-    elif [[ $TARGET == win32 || $TARGET == win64 ]]; then
-        # Fix AVX2 related crash due to unaligned stack memory
-        export CXXFLAGS="$CXXFLAGS -Wa,-muse-unaligned-vector-move"
-        export CFLAGS="$CFLAGS -Wa,-muse-unaligned-vector-move"
-    fi
+    # Fix AVX2 related crash due to unaligned stack memory
+    export CXXFLAGS="$CXXFLAGS -Wa,-muse-unaligned-vector-move"
+    export CFLAGS="$CFLAGS -Wa,-muse-unaligned-vector-move"
 
     cmake -G Ninja -DCMAKE_TOOLCHAIN_FILE="$FFBUILD_CMAKE_TOOLCHAIN" -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="$FFBUILD_PREFIX" -DCMAKE_POSITION_INDEPENDENT_CODE=ON \
         -DJPEGXL_ENABLE_SKCMS=OFF -DJPEGXL_FORCE_SYSTEM_LCMS2=ON \
@@ -39,13 +34,8 @@ ffbuild_dockerbuild() {
     ninja -j$(nproc)
     DESTDIR="$FFBUILD_DESTDIR" ninja install
 
-    if [[ $TARGET == win* ]]; then
-        echo "Libs.private: -lstdc++ -ladvapi32" >> "${FFBUILD_DESTPREFIX}"/lib/pkgconfig/libjxl.pc
-        echo "Libs.private: -lstdc++ -ladvapi32" >> "${FFBUILD_DESTPREFIX}"/lib/pkgconfig/libjxl_threads.pc
-    else
-        echo "Libs.private: -lstdc++" >> "${FFBUILD_DESTPREFIX}"/lib/pkgconfig/libjxl.pc
-        echo "Libs.private: -lstdc++" >> "${FFBUILD_DESTPREFIX}"/lib/pkgconfig/libjxl_threads.pc
-    fi
+    echo "Libs.private: -lstdc++ -ladvapi32" >> "${FFBUILD_DESTPREFIX}"/lib/pkgconfig/libjxl.pc
+    echo "Libs.private: -lstdc++ -ladvapi32" >> "${FFBUILD_DESTPREFIX}"/lib/pkgconfig/libjxl_threads.pc
 
     echo "Requires.private: lcms2" >> "${FFBUILD_DESTPREFIX}"/lib/pkgconfig/libjxl_cms.pc
 }

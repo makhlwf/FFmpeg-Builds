@@ -19,35 +19,10 @@ ffbuild_dockerbuild() {
         AR="$AR"
     )
 
-    if [[ $TARGET == win32 ]]; then
-        myconf+=(
-            OS=mingw_nt
-            ARCH=i686
-        )
-    elif [[ $TARGET == win64 ]]; then
-        myconf+=(
-            OS=mingw_nt
-            ARCH=x86_64
-        )
-    elif [[ $TARGET == winarm64 ]]; then
-        myconf+=(
-            OS=mingw_nt
-            ARCH=aarch64
-        )
-    elif [[ $TARGET == linux64 ]]; then
-        myconf+=(
-            OS=linux
-            ARCH=x86_64
-        )
-    elif [[ $TARGET == linuxarm64 ]]; then
-        myconf+=(
-            OS=linux
-            ARCH=aarch64
-        )
-    else
-        echo "Unknown target"
-        return -1
-    fi
+    myconf+=(
+        OS=mingw_nt
+        ARCH=x86_64
+    )
 
     make -j$(nproc) "${myconf[@]}" install-static DESTDIR="$FFBUILD_DESTDIR"
 }

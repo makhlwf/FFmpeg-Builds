@@ -8,7 +8,7 @@ ffbuild_depends() {
 }
 
 ffbuild_enabled() {
-    [[ $TARGET == win* ]] || return -1
+    [[ $TARGET == win64 ]] || return -1
     return 0
 }
 
@@ -78,34 +78,10 @@ ffbuild_dockerbuild() {
             --enable-wildcard
         )
 
-        case $TARGET in
-        *arm64)
-            myconf+=(
-                --disable-lib32
-                --disable-lib64
-                --enable-libarm64
-            )
-            ;;
-        *arm32)
-            myconf+=(
-                --disable-lib32
-                --disable-lib64
-                --enable-libarm32
-            )
-            ;;
-        *64)
-            myconf+=(
-                --disable-lib32
-                --enable-lib64
-            )
-            ;;
-        *32)
-            myconf+=(
-                --enable-lib32
-                --disable-lib64
-            )
-            ;;
-        esac
+        myconf+=(
+            --disable-lib32
+            --enable-lib64
+        )
 
         ./configure "${myconf[@]}"
         make -j$(nproc)

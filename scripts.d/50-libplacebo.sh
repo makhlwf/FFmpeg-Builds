@@ -40,20 +40,10 @@ ffbuild_dockerbuild() {
         -Dfuzz=false
     )
 
-    if [[ $TARGET == win* ]]; then
-        myconf+=(
-            -Dd3d11=enabled
-        )
-    fi
-
-    if [[ $TARGET == win* || $TARGET == linux* ]]; then
-        myconf+=(
-            --cross-file=/cross.meson
-        )
-    else
-        echo "Unknown target"
-        return -1
-    fi
+    myconf+=(
+        -Dd3d11=enabled
+        --cross-file=/cross.meson
+    )
 
     meson "${myconf[@]}" ..
     ninja -j$(nproc)

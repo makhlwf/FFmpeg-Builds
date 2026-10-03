@@ -25,9 +25,7 @@ ffbuild_dockerbuild() {
         -DENABLE_NO_EXPORT=ON
     )
 
-    if [[ $TARGET == win* ]]; then
-        myconf+=( -DPOLLER="epoll" )
-    fi
+    myconf+=( -DPOLLER="epoll" )
 
     cmake "${myconf[@]}" ..
     make -j$(nproc)
@@ -35,7 +33,7 @@ ffbuild_dockerbuild() {
 
     {
         echo "Cflags.private: -DZMQ_NO_EXPORT -DZMQ_STATIC"
-        [[ $TARGET != win* ]] || echo "Libs.private: -lws2_32 -liphlpapi"
+        echo "Libs.private: -lws2_32 -liphlpapi"
     } >> "$FFBUILD_DESTPREFIX"/lib/pkgconfig/libzmq.pc
 }
 

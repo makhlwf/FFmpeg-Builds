@@ -19,22 +19,9 @@ ffbuild_dockerbuild() {
         -Dbuiltin_mbedtls=false
         -Dbuilt_tools=false
         -Dtest=false
+        -Dhave_mingw_pthreads=true
+        --cross-file=/cross.meson
     )
-
-    if [[ $TARGET == win* ]]; then
-        myconf+=(
-            -Dhave_mingw_pthreads=true
-        )
-    fi
-
-    if [[ $TARGET == win* || $TARGET == linux* ]]; then
-        myconf+=(
-            --cross-file=/cross.meson
-        )
-    else
-        echo "Unknown target"
-        return -1
-    fi
 
     meson "${myconf[@]}" ..
     ninja -j"$(nproc)"

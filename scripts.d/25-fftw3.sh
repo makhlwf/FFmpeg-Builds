@@ -23,22 +23,12 @@ ffbuild_dockerbuild() {
         --with-incoming-stack-boundary=2
     )
 
-    if [[ $TARGET != *arm64 ]]; then
-        myconf+=(
-            --enable-sse2
-            --enable-avx
-            --enable-avx2
-        )
-    fi
-
-    if [[ $TARGET == win* || $TARGET == linux* ]]; then
-        myconf+=(
-            --host="$FFBUILD_TOOLCHAIN"
-        )
-    else
-        echo "Unknown target"
-        return -1
-    fi
+    myconf+=(
+        --enable-sse2
+        --enable-avx
+        --enable-avx2
+        --host="$FFBUILD_TOOLCHAIN"
+    )
 
     sed -i 's/windows.h/process.h/' configure.ac
 

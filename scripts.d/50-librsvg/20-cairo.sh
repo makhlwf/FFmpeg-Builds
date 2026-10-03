@@ -42,22 +42,15 @@ ffbuild_dockerbuild() {
         -Dgtk_doc=false
     )
 
-    if [[ $TARGET == win* || $TARGET == linux* ]]; then
-        myconf+=(
-            --cross-file=/cross.meson
-        )
-    else
-        echo "Unknown target"
-        return -1
-    fi
+    myconf+=(
+        --cross-file=/cross.meson
+    )
 
     meson setup "${myconf[@]}" ..
     ninja -j$(nproc)
     DESTDIR="$FFBUILD_DESTDIR" ninja install
 
-    if [[ $TARGET == win* ]]; then
-        echo "Cflags: -DCAIRO_WIN32_STATIC_BUILD" >> "$FFBUILD_DESTPREFIX"/lib/pkgconfig/cairo.pc
-        # The DWrite backend is C++ and COM
-        echo "Libs: -lole32 -lstdc++" >> "$FFBUILD_DESTPREFIX"/lib/pkgconfig/cairo.pc
-    fi
+    echo "Cflags: -DCAIRO_WIN32_STATIC_BUILD" >> "$FFBUILD_DESTPREFIX"/lib/pkgconfig/cairo.pc
+    # The DWrite backend is C++ and COM
+    echo "Libs: -lole32 -lstdc++" >> "$FFBUILD_DESTPREFIX"/lib/pkgconfig/cairo.pc
 }
