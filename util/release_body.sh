@@ -9,7 +9,7 @@ fi
 TAGNAME="$1"
 shift
 
-REPO="${GITHUB_REPOSITORY:-BtbN/FFmpeg-Builds}"
+REPO="${GITHUB_REPOSITORY:-makhlwf/FFmpeg-Builds}"
 DL_BASE="https://github.com/${REPO}/releases/download/${TAGNAME}"
 
 TARGETS=(win64)
