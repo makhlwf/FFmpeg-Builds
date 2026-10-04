@@ -43,44 +43,7 @@ TARGET_IMAGE="${REGISTRY}/${REPO}/base-${TARGET}:latest"
 IMAGE="${REGISTRY}/${REPO}/${TARGET}-${VARIANT}${ADDINS_STR:+-}${ADDINS_STR}:latest"
 
 ffbuild_ffver() {
-    case "$ADDINS_STR" in
-    *4.3*)
-        echo 403
-        ;;
-    *4.4*)
-        echo 404
-        ;;
-    *5.0*)
-        echo 500
-        ;;
-    *5.1*)
-        echo 501
-        ;;
-    *6.0*)
-        echo 600
-        ;;
-    *6.1*)
-        echo 601
-        ;;
-    *7.0*)
-        echo 700
-        ;;
-    *7.1*)
-        echo 701
-        ;;
-    *8.0*)
-        echo 800
-        ;;
-    *8.1*)
-        echo 801
-        ;;
-    *9.0*)
-        echo 900
-        ;;
-    *)
-        echo 99999999
-        ;;
-    esac
+    echo 99999999
 }
 
 
