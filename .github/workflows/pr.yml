@@ -8,6 +8,10 @@ on:
       - '**.md'
       - 'LICENSE'
 
+permissions:
+  contents: read
+  actions: write
+
 env:
   DOCKER_BUILDKIT: 1
 
