@@ -7,8 +7,10 @@ package_variant() {
     mkdir -p "$OUT"/bin
     cp "$IN"/bin/* "$OUT"/bin
 
-    mkdir -p "$OUT/doc"
-    cp -r "$IN"/share/doc/ffmpeg/* "$OUT"/doc
+    if [[ -d "$IN"/share/doc/ffmpeg ]]; then
+        mkdir -p "$OUT/doc"
+        cp -r "$IN"/share/doc/ffmpeg/* "$OUT"/doc
+    fi
 
     mkdir -p "$OUT/presets"
     cp "$IN"/share/ffmpeg/*.ffpreset "$OUT"/presets

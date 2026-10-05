@@ -15,7 +15,6 @@ ffbuild_depends() {
     echo lcms2
     echo libvorbis
     echo opencl
-    echo vmaf
     echo vulkan
     echo amf
     echo aom
@@ -28,7 +27,6 @@ ffbuild_depends() {
     echo ffnvcodec
     echo frei0r
     echo gme
-    echo kvazaar
     echo libaribb24
     echo libaribcaption
     echo libass
@@ -39,24 +37,16 @@ ffbuild_depends() {
     echo libopus
     echo libplacebo
     echo libpng
-    echo librist
     echo librsvg
-    echo libssh
     echo libtheora
     echo libvpx
     echo libwebp
-    echo libzmq
     echo lilv
     echo onevpl
-    echo openal
     echo openapv
-    echo opencore-amr
-    echo openh264
     echo openjpeg
     echo openmpt
-    echo rav1e
     echo rubberband
-    echo rustdedup
     echo schannel
     echo sdl
     echo snappy
@@ -68,7 +58,6 @@ ffbuild_depends() {
     echo vapoursynth
     echo vidstab
     echo vvenc
-    echo whisper
     echo x264
     echo x265
     echo xavs2
