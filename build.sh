@@ -42,6 +42,8 @@ cat <<EOF >"$BUILD_SCRIPT"
         --extra-version="\$(date +%Y%m%d)" || { cat ffbuild/config.log; exit 1; }
     make -j\$(nproc) V=1
     make install
+    ${FFBUILD_CROSS_PREFIX}strip --strip-all /ffbuild/prefix/bin/*.exe || true
+    ${FFBUILD_CROSS_PREFIX}strip --strip-unneeded /ffbuild/prefix/bin/*.dll || true
 EOF
 
 [[ -t 1 ]] && TTY_ARG="-t" || TTY_ARG=""

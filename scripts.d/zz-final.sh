@@ -17,27 +17,22 @@ ffbuild_depends() {
     echo opencl
     echo vulkan
     echo amf
-    echo aom
     echo avisynth
     echo chromaprint
     echo dav1d
-    echo davs2
     echo dvd
     echo fdk-aac
     echo ffnvcodec
     echo frei0r
     echo gme
-    echo libaribb24
     echo libaribcaption
     echo libass
     echo libbluray
     echo libcurl
-    echo libjxl
     echo libmp3lame
     echo libopus
     echo libplacebo
     echo libpng
-    echo librsvg
     echo libtheora
     echo libvpx
     echo libwebp
@@ -54,13 +49,10 @@ ffbuild_depends() {
     echo srt
     echo svtav1
     echo twolame
-    echo uavs3d
     echo vapoursynth
     echo vidstab
-    echo vvenc
     echo x264
     echo x265
-    echo xavs2
     echo xvid
     echo zimg
     echo zvbi
